@@ -8,7 +8,9 @@
 
         <p>Question: What's the right answer?</p>
             <ul>
-                <li></li>
+                <li th:each = "answer : ${question}">
+                    <p th:text = "${answer}"></p>
+                </li>
             </ul>
 
     </body>
