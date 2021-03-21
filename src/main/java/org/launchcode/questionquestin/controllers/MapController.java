@@ -12,4 +12,9 @@ public class MapController {
     public String overworld(){
         return "playerQuiz/overworld";
     }
+
+    @GetMapping("testLocation")
+    public String testLocation(){
+        return "playerQuiz/mapLocations/testLocation";
+    }
 }
