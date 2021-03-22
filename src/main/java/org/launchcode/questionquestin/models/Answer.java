@@ -11,6 +11,7 @@ public class Answer extends AbstractEntity{
 
     public Answer(String name, Boolean isCorrect){
         super();
+        this.setName(name);
         this.isCorrect = isCorrect;
     }
 

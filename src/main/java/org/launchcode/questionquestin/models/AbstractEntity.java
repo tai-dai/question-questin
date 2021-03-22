@@ -1,21 +1,18 @@
 package org.launchcode.questionquestin.models;
 
-import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.util.Objects;
 
-@Entity
+@MappedSuperclass
 public abstract class AbstractEntity {
 
+//    fix janky name inheritence situation
     @Id
+    @GeneratedValue
     private int id;
-    private static int nextId = 1;
     private String name;
-
-    public AbstractEntity() {
-        id = nextId;
-        nextId++;
-    }
 
 //  Getters 'n' setters 'n' override methods
 
@@ -34,8 +31,8 @@ public abstract class AbstractEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AbstractEntity that = (AbstractEntity) o;
-        return id == that.id;
+        AbstractEntity abstractEntity = (AbstractEntity) o;
+        return id == abstractEntity.id;
     }
 
     @Override

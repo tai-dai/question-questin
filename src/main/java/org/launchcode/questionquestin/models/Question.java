@@ -13,9 +13,9 @@ public class Question extends AbstractEntity{
 
     public Question(String name, ArrayList answers){
         super();
+        this.setName(name);
         this.answers = answers;
     }
-
 
 //    Getters 'n' setters
 
