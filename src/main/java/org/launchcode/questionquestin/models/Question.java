@@ -16,6 +16,13 @@ public class Question extends AbstractEntity{
         this.setName(name);
         this.answers = answers;
     }
+    
+    public boolean checkAnswer(Answer selectedAnswer){
+        if (selectedAnswer.getCorrect() == true){
+            return true;
+        }
+        return false;
+    }
 
 //    Getters 'n' setters
 

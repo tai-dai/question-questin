@@ -6,12 +6,16 @@
     </head>
     <body>
 
+    <form th:action="@{/encounters/testEncounter}" method = "post">
         <p th:text = "'Question: ' + ${question.name}">Question: What's the right answer?</p>
-            <ul>
-                <li th:each = "answer : ${question.answers}">
-                    <p th:text = "${answer.name}"></p>
-                </li>
-            </ul>
+        <p>
+            <span th:each = "answer : ${question.answers}">
+                <input type = "radio" name = "selectedAnswer" th:value = "${answer}"/>
+                <label th:text = "${answer.name}"></label>
+            </span>
+        </p>
+        <input type="submit" value="Submit"/>
+    </form>
 
     </body>
 </html>

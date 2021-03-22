@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @Controller
-@RequestMapping("encounter")
+@RequestMapping("encounters")
 public class EncounterController {
 
     @GetMapping("testEncounter")
@@ -27,9 +27,18 @@ public class EncounterController {
         return "playerQuiz/encounters/testEncounter";
     }
 
-//    @PostMapping("testEncounter")
-//    public String processAnswer(@RequestParam int ans) {
-//
-//        return "playerQuiz/encounters/testEncounter";
-//    }
+    @PostMapping("testEncounter")
+    public String processAnswer(Model model) {
+
+        ArrayList<Answer> testAnswers = new ArrayList<>();
+        testAnswers.add(new Answer("Not I", false));
+        testAnswers.add(new Answer("Nope!", false));
+        testAnswers.add(new Answer("It me", true));
+        testAnswers.add(new Answer("Don't look here!", false));
+        Question testQuestion = new Question("What is the right answer?", testAnswers) ;
+
+        model.addAttribute("question", testQuestion);
+
+        return "playerQuiz/encounters/testEncounter";
+    }
 }
