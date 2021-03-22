@@ -6,10 +6,10 @@
     </head>
     <body>
 
-        <p>Question: What's the right answer?</p>
+        <p th:text = "'Question: ' + ${question.name}">Question: What's the right answer?</p>
             <ul>
-                <li th:each = "answer : ${question}">
-                    <p th:text = "${answer}"></p>
+                <li th:each = "answer : ${question.answers}">
+                    <p th:text = "${answer.name} + 'this works'"></p>
                 </li>
             </ul>
 
