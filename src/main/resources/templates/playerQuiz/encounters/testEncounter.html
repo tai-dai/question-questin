@@ -10,12 +10,15 @@
         <p th:text = "'Question: ' + ${question.name}">Question: What's the right answer?</p>
         <p>
             <span th:each = "answer : ${question.answers}">
-                <input type = "radio" name = "selectedAnswer" th:value = "${answer}"/>
+                <input type = "radio" name = "selectedAnswer" th:value = "${answer.id}"/>
                 <label th:text = "${answer.name}"></label>
             </span>
         </p>
         <input type="submit" value="Submit"/>
     </form>
 
+    <p>
+        <span th:if = "${correct == true}">You did it you sunnuvabitch</span>
+    </p>
     </body>
 </html>

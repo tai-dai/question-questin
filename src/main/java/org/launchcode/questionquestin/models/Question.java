@@ -3,6 +3,7 @@ package org.launchcode.questionquestin.models;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
+import java.util.Collections;
 
 @Entity
 public class Question extends AbstractEntity{
@@ -17,10 +18,22 @@ public class Question extends AbstractEntity{
         this.answers = answers;
     }
     
-    public boolean checkAnswer(Answer selectedAnswer){
-        if (selectedAnswer.getCorrect() == true){
+    public boolean checkAnswers(ArrayList<Integer> selectedAnswers){
+        ArrayList<Integer> correctAnswers = new ArrayList<>();
+
+        for (Answer answer : this.answers){
+            if (answer.getCorrect() == true) {
+                correctAnswers.add(answer.getId());
+            }
+        }
+
+        Collections.sort(selectedAnswers);
+        Collections.sort(correctAnswers);
+
+        if (correctAnswers.equals(selectedAnswers)) {
             return true;
         }
+
         return false;
     }
 
