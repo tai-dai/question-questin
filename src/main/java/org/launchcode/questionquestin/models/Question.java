@@ -1,25 +1,30 @@
 package org.launchcode.questionquestin.models;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 @Entity
-public class Question extends AbstractEntity{
+public class Question extends AbstractEntity {
 
-    private ArrayList<Answer> answers = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "question_id")
+    private List<Answer> answers = new ArrayList<>();
 
-    public Question(){}
-
-    public Question(String name, ArrayList answers){
-        super();
+    public Question(String name, List answers){
         this.setName(name);
         this.answers = answers;
     }
+
+    public Question(){}
     
-    public boolean checkAnswers(ArrayList<Integer> selectedAnswers){
-        ArrayList<Integer> correctAnswers = new ArrayList<>();
+    public boolean checkAnswers(List<Integer> selectedAnswers){
+        List<Integer> correctAnswers = new ArrayList<>();
 
         for (Answer answer : this.answers){
             if (answer.getCorrect() == true) {
@@ -39,7 +44,7 @@ public class Question extends AbstractEntity{
 
 //    Getters 'n' setters
 
-    public ArrayList<Answer> getAnswers() { return answers; }
+    public List<Answer> getAnswers() { return answers; }
 
     public void setAnswers(ArrayList<Answer> answers) { this.answers = answers; }
 
