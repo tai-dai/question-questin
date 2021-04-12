@@ -11,7 +11,7 @@
         <p>
             <span th:each = "answer : ${question.answers}">
                 <input type = "radio" name = "selectedAnswer" th:value = "${answer.id}"/>
-                <label th:text = "${answer.name} + ${answer.id}"></label>
+                <label th:text = "${answer.name}"></label>
             </span>
         </p>
         <input th:unless = "${correct}" type="submit" value="Submit"/>
