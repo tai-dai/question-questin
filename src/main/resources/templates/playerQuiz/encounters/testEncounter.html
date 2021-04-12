@@ -11,10 +11,13 @@
         <p>
             <span th:each = "answer : ${question.answers}">
                 <input type = "radio" name = "selectedAnswer" th:value = "${answer.id}"/>
-                <label th:text = "${answer.name}"></label>
+                <label th:text = "${answer.name} + ${answer.id}"></label>
             </span>
         </p>
-        <input type="submit" value="Submit"/>
+        <input th:unless = "${correct}" type="submit" value="Submit"/>
+    </form>
+    <form th:if = "${correct}" th:action= "@{'/map/testLocation'}" method = "get" >
+        <button type="submit">Continue</button>
     </form>
 
     <p>

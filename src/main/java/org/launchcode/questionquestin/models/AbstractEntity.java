@@ -8,13 +8,14 @@ import java.util.Objects;
 @MappedSuperclass
 public abstract class AbstractEntity {
 
-//    fix janky name inheritence situation
     @Id
     @GeneratedValue
+//    Ids currently always evaluate to 0
     private int id;
     private String name;
 
 //  Getters 'n' setters 'n' override methods
+
 
     public int getId() { return id; }
     public String getName() { return name; }
