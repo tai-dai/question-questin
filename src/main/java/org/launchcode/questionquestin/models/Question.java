@@ -1,10 +1,7 @@
 package org.launchcode.questionquestin.models;
 
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,13 +9,17 @@ import java.util.List;
 @Entity
 public class Question extends AbstractEntity {
 
+    @ManyToOne
+    private Quiz quiz;
+
     @OneToMany
     @JoinColumn(name = "question_id")
     private List<Answer> answers = new ArrayList<>();
 
-    public Question(String name, List answers){
+    public Question(String name, List answers, Quiz quiz){
         this.setName(name);
         this.answers = answers;
+        this.quiz = quiz;
     }
 
     public Question(){}
@@ -45,7 +46,9 @@ public class Question extends AbstractEntity {
 //    Getters 'n' setters
 
     public List<Answer> getAnswers() { return answers; }
+    public Quiz getQuiz() { return quiz; }
 
     public void setAnswers(ArrayList<Answer> answers) { this.answers = answers; }
+    public void setQuiz(Quiz quiz) { this.quiz = quiz; }
 
 }
