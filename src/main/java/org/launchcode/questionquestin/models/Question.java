@@ -16,6 +16,8 @@ public class Question extends AbstractEntity {
     @JoinColumn(name = "question_id")
     private List<Answer> answers = new ArrayList<>();
 
+//    TODO: add "question type" enums so questions can be multiple choice, true/false, or multiselect
+
     public Question(String name, List answers, Quiz quiz){
         this.setName(name);
         this.answers = answers;

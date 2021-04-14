@@ -2,9 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create New Quiz // Question Questin'</title>
 </head>
 <body>
+    <h1>Create New Quiz</h1>
+
+    <form th:action="@{/newQuiz}" method = "post">
+        <div>
+            <p>Quiz name:</p>
+            <input type = "text" th:name = "quizName">
+            <p>Number of Questions:</p>
+            <input type = "radio" th:name = "numQuestions">
+            <label th:value = "16" >16</label>
+        </div>
+        <input type="submit" value="Submit"/>
+    </form>
 
 </body>
 </html>
