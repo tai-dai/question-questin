@@ -33,7 +33,7 @@ public class NewQuizController {
             return "admin/createQuiz";
         }
 
-        @PostMapping("")
+        @PostMapping("create")
         public String createQuizQs(Model model, @RequestParam String quizName, @RequestParam String numQuestions){
             int quizLength = 16;
             if(numQuestions == "16"){
@@ -47,7 +47,7 @@ public class NewQuizController {
             while(i < quizLength){
                 i++;
                 List<Answer> newAnswers = new ArrayList<>();
-                newQuestions.add(new Question("name", newAnswers, newQuiz));
+                newQuestions.add(new Question("name", newAnswers, i, newQuiz));
             }
             //At this point, we have a quiz with the selected amount of questions. (Can only be 16 currently)
             //The questions each have the placeholder name "name," and an empty arraylist.
@@ -55,4 +55,16 @@ public class NewQuizController {
 
             return "admin/createQuizQNAs";
         }
+
+        @PostMapping("questions")
+        public String quizComplete(Model model,
+                                   String questionType1, String questionName1, String answer1A, String isCorrect1A, String answer1B, String isCorrect1B, String answer1C, String isCorrect1C, String answer1D, String isCorrect1D){
+            return "";
+        }
+    // requestparams: how do you take in 160 request params at once oh my god
+    //questionType1 - questionType16
+    //questionName1 - questionName16
+    //answer1A - answer16D
+    //isCorrect1A - isCorrect16D
+
 }
