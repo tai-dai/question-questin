@@ -7,11 +7,9 @@
 <body>
     <h1>Create Quiz Questions and Answers</h1>
     <form th:action="@{/newQuiz/questions}" method = "post">
-        <ol>
-            <li th:each = "question : ${quiz.questions}">
                 <div>
                     <h2>Question type</h2>
-                    <input type = "radio" th:name = "'questionType' + ${question.questionNum}">
+                    <input type = "radio" th:name = "questionType">
                     <label th:value = "multiChoice">Multiple choice; four possible answers, one correct answer</label>
 <!--                TODO
                     When in Angular, change question prompt and answers prompt to only appear after question type has been selected-->
@@ -19,7 +17,7 @@
 
                 <div>
                     <h2>Question prompt:</h2>
-                    <input type = "text" th:name = "'questionName' + ${question.questionNum}">
+                    <input type = "text" th:name = "questionName">
                 </div>
 
                 <div>
@@ -27,40 +25,36 @@
                 </div>
 
                 <div>
-                    <input type = "text" th:name = "'answer' + ${question.questionNum} + 'A'">
+                    <input type = "text" th:name = "answerA">
                     <p>Is this the correct answer?</p>
-                        <input type = "radio" th:name = "'isCorrect' + ${question.questionNum} + 'A'">
-                        <label value = "correct" th:text = "Yes"></label>
-                        <label value = "incorrect" th:text = "No"></label>
+                        <input type = "radio" th:name = "correctAns">
+                        <label th:for = "correctAns" value = "ansA" th:text = "Yes"></label>
                 </div>
 
                 <div>
-                    <input type = "text" th:name = "'answer' + ${question.questionNum} + 'B'">
+                    <input type = "text" th:name = "answerB">
                     <p>Is this the correct answer?</p>
-                        <input type = "radio" th:name = "'isCorrect' + ${question.questionNum} + 'B'">
-                        <label value = "correct" th:text = "Yes"></label>
-                        <label value = "incorrect" th:text = "No"></label>
+                        <input type = "radio" th:name = "correctAns">
+                        <label th:for = "correctAns" value = "ansB" th:text = "Yes"></label>
                 </div>
 
                 <div>
-                    <input type = "text" th:name = "'answer' + ${question.questionNum} + 'C'">
+                    <input type = "text" th:name = "answerC">
                     <p>Is this the correct answer?</p>
-                        <input type = "radio" th:name = "'isCorrect' + ${question.questionNum} + 'C'">
-                        <label value = "correct" th:text = "Yes"></label>
-                        <label value = "incorrect" th:text = "No"></label>
+                        <input type = "radio" th:name = "correctAns">
+                        <label th:for = "correctAns" value = "ansC" th:text = "Yes"></label>
                 </div>
 
                 <div>
-                    <input type = "text" th:name = "'answer' + ${question.questionNum} + 'D'">
+                    <input type = "text" th:name = "answerD">
                     <p>Is this the correct answer?</p>
-                        <input type = "radio" th:name = "'isCorrect' + ${question.questionNum} + 'D'">
-                        <label value = "correct" th:text = "Yes"></label>
-                        <label value = "incorrect" th:text = "No"></label>
+                        <input type = "radio" th:name = "correctAns">
+                        <label th:for = "correctAns" value = "ansD" th:text = "Yes"></label>
                 </div>
-
-            </li>
-        </ol>
         <input type="submit" value="Submit"/>
     </form>
+
+    <input type = "hidden" th:name = "quizId" th:value = "quiz.id">
+    <input type = "hidden" th:name = "questionId" th:value = "question.id">
 </body>
 </html>

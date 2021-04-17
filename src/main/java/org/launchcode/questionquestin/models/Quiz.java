@@ -1,5 +1,6 @@
 package org.launchcode.questionquestin.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -9,7 +10,7 @@ import java.util.List;
 @Entity
 public class Quiz extends AbstractEntity{
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "quiz_id")
     private List<Question> questions = new ArrayList<>();
     private int numQuestions;
@@ -23,6 +24,15 @@ public class Quiz extends AbstractEntity{
     }
 
     public Quiz(){}
+
+    public void initializeQuiz(int quizLength, List newQuestions){
+        int i = 0;
+        while(i < quizLength){
+            i++;
+            List<Answer> newAnswers = new ArrayList<>();
+            newQuestions.add(new Question("name", newAnswers, i, this));
+        }
+    }
 
     public List<Question> getQuestions() { return questions; }
     public double getPercentComplete() { return percentComplete; }

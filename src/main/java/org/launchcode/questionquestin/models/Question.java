@@ -12,11 +12,12 @@ public class Question extends AbstractEntity {
     @ManyToOne
     private Quiz quiz;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private List<Answer> answers = new ArrayList<>();
 
     private int questionNum;
+    private Boolean setupComplete = false;
 
 //    TODO: add "question type" enums so questions can be multiple choice, true/false, or multiselect
 
@@ -53,9 +54,10 @@ public class Question extends AbstractEntity {
     public List<Answer> getAnswers() { return answers; }
     public int getQuestionNum() { return questionNum; }
     public Quiz getQuiz() { return quiz; }
+    public Boolean getSetupComplete() { return setupComplete; }
 
     public void setAnswers(ArrayList<Answer> answers) { this.answers = answers; }
     public void setQuestionNum(int questionNum) { this.questionNum = questionNum; }
     public void setQuiz(Quiz quiz) { this.quiz = quiz; }
-
+    public void setSetupComplete(Boolean setupComplete) { this.setupComplete = setupComplete; }
 }
