@@ -58,59 +58,59 @@ public class NewQuizController {
             return "admin/createQuizQNAs";
         }
 
-        @PostMapping("/{quizId}/questions/{questionNum}of{numQuestions}")
+        @RequestMapping(value = {"/{quizId}/questions/{questionNum}of{numQuestions}", "/{quizId}/review"},
+                method = { RequestMethod.GET, RequestMethod.POST })
         public String quizComplete(Model model,
-                                   @PathVariable int questionNum, @PathVariable int numQuestions,
-                                   @PathVariable int quizId, @RequestParam int questionId,
-                                   @RequestParam String questionName, @RequestParam String questionType,
-                                   @RequestParam String answerA, @RequestParam String answerB,
-                                   @RequestParam String answerC, @RequestParam String answerD,
-                                   @RequestParam String correctAns, @RequestParam Boolean quizSetupComplete) {
+                                   @PathVariable(required = false) Integer questionNum,
+                                   @PathVariable(required = false) Integer numQuestions,
+                                   @PathVariable int quizId, @RequestParam(required = false) Integer questionId,
+                                   @RequestParam(required = false) String questionName,
+                                   @RequestParam(required = false) String questionType,
+                                   @RequestParam(required = false) String answerA,
+                                   @RequestParam(required = false) String answerB,
+                                   @RequestParam(required = false) String answerC,
+                                   @RequestParam(required = false) String answerD,
+                                   @RequestParam(required = false) String correctAns,
+                                   @RequestParam(required = false) Boolean quizSetupComplete) {
 
             Optional<Quiz> resultQuiz = quizRepository.findById(quizId);
             Quiz quiz = resultQuiz.get();
 
-            Optional<Question> resultQuest = questionRepository.findById(questionId);
-            Question lastQuestion = resultQuest.get();
+            //TODO fix so that questions can be edited from the review button
+            if (quiz.getSetupComplete() == false) {
+                Optional<Question> resultQuest = questionRepository.findById(questionId);
+                Question lastQuestion = resultQuest.get();
 
-            //TODO question.setType(questionType)
-            lastQuestion.setName(questionName);
-            List<Answer> newAnswers = new ArrayList<>();
-            List<String> answerNames = new ArrayList<>();
-            answerNames.add(answerA);
-            answerNames.add(answerB);
-            answerNames.add(answerC);
-            answerNames.add(answerD);
+                //TODO question.setType(questionType)
+                lastQuestion.setName(questionName);
+                List<Answer> newAnswers = new ArrayList<>();
+                List<String> answerNames = new ArrayList<>();
+                answerNames.add(answerA);
+                answerNames.add(answerB);
+                answerNames.add(answerC);
+                answerNames.add(answerD);
 
-            int correctAnsIndex = Integer.parseInt(correctAns, 10);
+                int correctAnsIndex = Integer.parseInt(correctAns, 10);
 
-            lastQuestion.initialize(questionName, newAnswers, answerNames, lastQuestion, correctAnsIndex);
+                lastQuestion.initialize(questionName, newAnswers, answerNames, lastQuestion, correctAnsIndex);
 
-            answerRepository.saveAll(lastQuestion.getAnswers());
-            questionRepository.save(lastQuestion);
-            quizRepository.save(quiz);
+                answerRepository.saveAll(lastQuestion.getAnswers());
+                questionRepository.save(lastQuestion);
+                quizRepository.save(quiz);
 
-            if (quizSetupComplete == false) {
-                //find the next question in quiz questions that has setupComplete = false
+                model.addAttribute("quiz", quiz);
+
                 for (Question question : quiz.getQuestions()) {
                     if (question.getSetupComplete() == false) {
-                        model.addAttribute("quiz", quiz);
                         model.addAttribute("question", question);
                         return "admin/createQuizQNAs";
                     }
                 }
-                quiz.setSetupComplete(true);
             }
 
+            quiz.setSetupComplete(true);
+            quizRepository.save(quiz);
+            model.addAttribute("quiz", quiz);
             return "admin/reviewQuiz";
         }
-
-//        @PostMapping("/newQuiz/{quizId}/review")
-//        public String reviewQuiz(Model model, @PathVariable int quizId){
-//
-//            Optional<Quiz> resultQuiz = quizRepository.findById(quizId);
-//            Quiz quiz = resultQuiz.get();
-//
-//
-//        }
     }

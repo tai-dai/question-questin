@@ -5,18 +5,23 @@
     <title>Review Quiz // Question Questin'</title>
 </head>
 <body>
-    <h1 th:text = "'Review Quiz:' + ${quiz.name}">Review Quiz</h1>
+    <h1 th:text = "'Review Quiz: ' + ${quiz.name}">Review Quiz</h1>
+    <ol>
+        <li th:each = "question : ${quiz.questions}">
+            <h2 th:text = ${question.name}>Name</h2>
+            <table th:each = "answer : ${question.answers}">
+                <tr th:text = "${answer.name}"></tr>
+                <tr th:if = "${answer.getCorrect()}"> (I'm the right answer!)</tr>
+            </table>
+            <a th:href = "@{questions/{current}of{total}(current=${question.questionNum + 1}, total=${quiz.numQuestions})}">
+                <button>Edit</button>
+            </a>
+        </li>
+    </ol>
 
-    <th:block th:each = "question : ${quiz.questions}">
-        <p th:text = ${question.name}>Name</p>
-        <th:block th:each = "answer : ${question.answers}">
-            <td th:text = "${answer.name}"></td>
-            <td th:if = "${answer.isCorrect} = true">I'm the right answer!</td>
-        </th:block>
-
-    </th:block>
-
-    <input type="button" value="Finish quiz" class="btn warning"/>
+    <a th:href = "@{'/'}">
+    <button>Finish quiz</button>
+    </a>
 
 </body>
 </html>
