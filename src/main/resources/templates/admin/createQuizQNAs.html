@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Create Quiz Questions and Answers</h1>
-    <form th:action="@{/newQuiz/{whichQuiz}/questions/{current}of{total}(whichQuiz=${quizId}, current=${questionNum + 1}, total=${numQuestions})}" method = "post">
+    <form th:action="@{/newQuiz/{whichQuiz}/questions/{current}of{total}(whichQuiz=${quiz.id}, current=${questionNum + 1}, total=${numQuestions})}" method = "post">
             <div>
                 <h2>Question type</h2>
                 <input type = "radio" th:name = "questionType">
@@ -17,7 +17,7 @@
 
             <div>
                 <h2>Question prompt:</h2>
-                <input type = "text" placeholder = "question.name" th:name = "questionName">
+                <input type = "text" placeholder = "${question.name}" th:name = "questionName">
             </div>
 
             <div>
@@ -27,29 +27,29 @@
             <div>
                 <input type = "text" th:name = "answerA">
                 <p>Is this the correct answer?</p>
-                    <input type = "radio" th:name = "correctAns">
-                    <label th:for = "correctAns" value = "ansA" th:text = "Yes"></label>
+                    <input type = "radio" value = "0"  th:name = "correctAns">
+                    <label th:for = "correctAns" th:text = "Yes"></label>
             </div>
 
             <div>
                 <input type = "text" th:name = "answerB">
                 <p>Is this the correct answer?</p>
-                    <input type = "radio" th:name = "correctAns">
-                    <label th:for = "correctAns" value = "ansB" th:text = "Yes"></label>
+                    <input type = "radio" value = "1" th:name = "correctAns">
+                    <label th:for = "correctAns" th:text = "Yes"></label>
             </div>
 
             <div>
                 <input type = "text" th:name = "answerC">
                 <p>Is this the correct answer?</p>
-                    <input type = "radio" th:name = "correctAns">
-                    <label th:for = "correctAns" value = "ansC" th:text = "Yes"></label>
+                    <input type = "radio" value = "2" th:name = "correctAns">
+                    <label th:for = "correctAns" th:text = "Yes"></label>
             </div>
 
             <div>
                 <input type = "text" th:name = "answerD">
                 <p>Is this the correct answer?</p>
-                    <input type = "radio" th:name = "correctAns">
-                    <label th:for = "correctAns" value = "ansD" th:text = "Yes"></label>
+                    <input type = "radio" value = "3" th:name = "correctAns">
+                    <label th:for = "correctAns" th:text = "Yes"></label>
             </div>
 
             <input type = "hidden" th:name = "quizId" th:value = "${quiz.id}">

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.Integer.parseInt;
+
 @Controller
 @RequestMapping("newQuiz")
 public class NewQuizController {
@@ -74,34 +76,19 @@ public class NewQuizController {
             //TODO question.setType(questionType)
             lastQuestion.setName(questionName);
             List<Answer> newAnswers = new ArrayList<>();
-            newAnswers.add(new Answer(answerA, false, lastQuestion));
-            newAnswers.add(new Answer(answerB, false, lastQuestion));
-            newAnswers.add(new Answer(answerC, false, lastQuestion));
-            newAnswers.add(new Answer(answerD, false, lastQuestion));
+            List<String> answerNames = new ArrayList<>();
+            answerNames.add(answerA);
+            answerNames.add(answerB);
+            answerNames.add(answerC);
+            answerNames.add(answerD);
 
-            Answer selectedAnswer;
-            if (correctAns == "ansA"){
-                selectedAnswer = newAnswers.get(0);
-                selectedAnswer.setCorrect(true);
-            } else if (correctAns == "ansB"){
-                selectedAnswer = newAnswers.get(1);
-                selectedAnswer.setCorrect(true);
-            } else if (correctAns == "ansC"){
-                selectedAnswer = newAnswers.get(2);
-                selectedAnswer.setCorrect(true);
-            } else if (correctAns == "ansD"){
-                selectedAnswer = newAnswers.get(4);
-                selectedAnswer.setCorrect(true);
-            }
+            int correctAnsIndex = Integer.parseInt(correctAns, 10);
 
-            lastQuestion.setAnswers((ArrayList<Answer>) newAnswers);
-            lastQuestion.setSetupComplete(true);
+            lastQuestion.initialize(questionName, newAnswers, answerNames, lastQuestion, correctAnsIndex);
 
-            answerRepository.saveAll(newAnswers);
+            answerRepository.saveAll(lastQuestion.getAnswers());
             questionRepository.save(lastQuestion);
             quizRepository.save(quiz);
-
-            //check for complete setup in quiz
 
             if (quizSetupComplete == false) {
                 //find the next question in quiz questions that has setupComplete = false
@@ -115,13 +102,10 @@ public class NewQuizController {
                 quiz.setSetupComplete(true);
             }
 
-            //return a template with the printed quiz for review
-            //questions can be clicked, which will redirect to the question for editing
-            //add a new button to quizQNAs that says "finish," which will return to the review template
-            return "index";
+            return "admin/reviewQuiz";
         }
 
-//        @PostMapping("/reviewQuiz/{quizId}")
+//        @PostMapping("/newQuiz/{quizId}/review")
 //        public String reviewQuiz(Model model, @PathVariable int quizId){
 //
 //            Optional<Quiz> resultQuiz = quizRepository.findById(quizId);
