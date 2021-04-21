@@ -50,26 +50,26 @@ public class NewQuizController {
 
             model.addAttribute("quiz", newQuiz);
             model.addAttribute("question", nextQuestion);
+            model.addAttribute("questionNum", nextQuestion.getQuestionNum());
+            model.addAttribute("numQuestions", newQuiz.getNumQuestions());
 
             return "admin/createQuizQNAs";
         }
 
-        @PostMapping("questions/{questionNum}of{numQuestions}")
+        @PostMapping("/{quizId}/questions/{questionNum}of{numQuestions}")
         public String quizComplete(Model model,
                                    @PathVariable int questionNum, @PathVariable int numQuestions,
-                                   @RequestParam int quizId, @RequestParam int questionId,
+                                   @PathVariable int quizId, @RequestParam int questionId,
                                    @RequestParam String questionName, @RequestParam String questionType,
                                    @RequestParam String answerA, @RequestParam String answerB,
                                    @RequestParam String answerC, @RequestParam String answerD,
-                                   @RequestParam String correctAns, @RequestParam Boolean quizComplete) {
+                                   @RequestParam String correctAns, @RequestParam Boolean quizSetupComplete) {
 
             Optional<Quiz> resultQuiz = quizRepository.findById(quizId);
             Quiz quiz = resultQuiz.get();
 
             Optional<Question> resultQuest = questionRepository.findById(questionId);
             Question lastQuestion = resultQuest.get();
-
-            Question nextQuestion = new Question();
 
             //TODO question.setType(questionType)
             lastQuestion.setName(questionName);
@@ -82,37 +82,51 @@ public class NewQuizController {
             Answer selectedAnswer;
             if (correctAns == "ansA"){
                 selectedAnswer = newAnswers.get(0);
+                selectedAnswer.setCorrect(true);
             } else if (correctAns == "ansB"){
                 selectedAnswer = newAnswers.get(1);
+                selectedAnswer.setCorrect(true);
             } else if (correctAns == "ansC"){
                 selectedAnswer = newAnswers.get(2);
+                selectedAnswer.setCorrect(true);
             } else if (correctAns == "ansD"){
-                selectedAnswer = newAnswers.get(0);
+                selectedAnswer = newAnswers.get(4);
+                selectedAnswer.setCorrect(true);
             }
 
             lastQuestion.setAnswers((ArrayList<Answer>) newAnswers);
+            lastQuestion.setSetupComplete(true);
 
-            if (quizComplete == false) {
+            answerRepository.saveAll(newAnswers);
+            questionRepository.save(lastQuestion);
+            quizRepository.save(quiz);
 
+            //check for complete setup in quiz
+
+            if (quizSetupComplete == false) {
+                //find the next question in quiz questions that has setupComplete = false
                 for (Question question : quiz.getQuestions()) {
                     if (question.getSetupComplete() == false) {
-                        nextQuestion = question;
                         model.addAttribute("quiz", quiz);
                         model.addAttribute("question", question);
                         return "admin/createQuizQNAs";
-                    } else {
-                        continue;
                     }
                 }
+                quiz.setSetupComplete(true);
             }
-            return "index";
 
-            //so new plan
-            //postMapping questions + (question #) of (# of questions)
-            //parameters quiz, questionType, questionName, answerA, answerB, answerC, answerD, correctAns
-            //loops through each question in quiz, setting properties, until all are completed
-            //when all are completed, activate "finish" button
-            //finish button leads to completed quiz, can link back to questions if they need editing.
-            //when completed quiz is accepted by user, reroutes to all of user's quizzes
+            //return a template with the printed quiz for review
+            //questions can be clicked, which will redirect to the question for editing
+            //add a new button to quizQNAs that says "finish," which will return to the review template
+            return "index";
         }
+
+//        @PostMapping("/reviewQuiz/{quizId}")
+//        public String reviewQuiz(Model model, @PathVariable int quizId){
+//
+//            Optional<Quiz> resultQuiz = quizRepository.findById(quizId);
+//            Quiz quiz = resultQuiz.get();
+//
+//
+//        }
     }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Review Quiz // Question Questin'</title>
+</head>
+<body>
+    <h1 th:text = "'Review Quiz:' + ${quiz.name}">Review Quiz</h1>
+
+    <th:block th:each = "question : ${quiz.questions}">
+        <p th:text = ${question.name}>Name</p>
+        <th:block th:each = "answer : ${question.answers}">
+            <td th:text = "${answer.name}"></td>
+            <td th:if = "${answer.isCorrect} = true">I'm the right answer!</td>
+        </th:block>
+
+    </th:block>
+
+    <input type="button" value="Finish quiz" class="btn warning"/>
+
+</body>
+</html>

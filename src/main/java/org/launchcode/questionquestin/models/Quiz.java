@@ -15,6 +15,7 @@ public class Quiz extends AbstractEntity{
     private List<Question> questions = new ArrayList<>();
     private int numQuestions;
     private double percentComplete = 0;
+    private Boolean setupComplete = false;
     private Boolean isComplete = false;
 
     public Quiz(String name, int numQuestions, List questions){
@@ -36,9 +37,14 @@ public class Quiz extends AbstractEntity{
 
     public List<Question> getQuestions() { return questions; }
     public double getPercentComplete() { return percentComplete; }
+    public Boolean getSetupComplete() { return setupComplete; }
     public Boolean getComplete() { return isComplete; }
+    public int getNumQuestions() { return numQuestions; }
 
     public void setQuestions(List<Question> questions) { this.questions = questions; }
     public void setPercentComplete(double percentComplete) { this.percentComplete = percentComplete; }
+    public void setSetupComplete(Boolean setupComplete) { this.setupComplete = setupComplete; }
     public void setComplete(Boolean complete) { isComplete = complete; }
+    public void setNumQuestions(int numQuestions) { this.numQuestions = numQuestions; }
+
 }
