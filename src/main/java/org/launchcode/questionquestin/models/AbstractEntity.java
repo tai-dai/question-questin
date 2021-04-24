@@ -1,18 +1,20 @@
 package org.launchcode.questionquestin.models;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
 
-
-    //    Ids currently always evaluate to 0
     @Id
     @GeneratedValue
     private int id;
 
-    @Lob
+    @NotBlank
+    @Size(min = 3, max = 400)
     private String name;
 
 //  Getters 'n' setters 'n' override methods

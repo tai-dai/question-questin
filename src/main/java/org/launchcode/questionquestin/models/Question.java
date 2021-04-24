@@ -1,6 +1,8 @@
 package org.launchcode.questionquestin.models;
 
 
+import javax.validation.constraints.NotNull;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,10 +18,14 @@ public class Question extends AbstractEntity {
     @JoinColumn(name = "question_id")
     private List<Answer> answers = new ArrayList<>();
 
+    @NotNull
     private int questionNum;
     private Boolean setupComplete = false;
 
-//    TODO: add "question type" enums so questions can be multiple choice, true/false, or multiselect
+    //TODO: move to QuizUser when users
+    private Boolean answered = false;
+
+    //TODO: add "question type" enums so questions can be multiple choice, true/false, or multiselect
 
     public Question(String name, List answers, int questionNum, Quiz quiz) {
         this.setName(name);
@@ -33,37 +39,19 @@ public class Question extends AbstractEntity {
 
 //    Getters 'n' setters
 
-    public List<Answer> getAnswers() {
-        return answers;
-    }
+    public List<Answer> getAnswers() { return answers; }
+    public int getQuestionNum() { return questionNum; }
+    public Quiz getQuiz() { return quiz; }
+    public Boolean getSetupComplete() { return setupComplete; }
+    //TODO: move to QuizUser when users
+    public Boolean getAnswered() { return answered; }
 
-    public int getQuestionNum() {
-        return questionNum;
-    }
-
-    public Quiz getQuiz() {
-        return quiz;
-    }
-
-    public Boolean getSetupComplete() {
-        return setupComplete;
-    }
-
-    public void setAnswers(ArrayList<Answer> answers) {
-        this.answers = answers;
-    }
-
-    public void setQuestionNum(int questionNum) {
-        this.questionNum = questionNum;
-    }
-
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
-    }
-
-    public void setSetupComplete(Boolean setupComplete) {
-        this.setupComplete = setupComplete;
-    }
+    public void setAnswers(ArrayList<Answer> answers) { this.answers = answers; }
+    public void setQuestionNum(int questionNum) { this.questionNum = questionNum; }
+    public void setQuiz(Quiz quiz) { this.quiz = quiz; }
+    public void setSetupComplete(Boolean setupComplete) { this.setupComplete = setupComplete; }
+    //TODO: move to QuizUser when users
+    public void setAnswered(Boolean answered) { this.answered = answered; }
 
     //Class methods
 

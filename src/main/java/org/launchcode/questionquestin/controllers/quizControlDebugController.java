@@ -1,7 +1,9 @@
 package org.launchcode.questionquestin.controllers;
 
 import org.launchcode.questionquestin.models.Quiz;
+import org.launchcode.questionquestin.models.QuizUser;
 import org.launchcode.questionquestin.models.data.QuizRepository;
+import org.launchcode.questionquestin.models.data.QuizUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,9 @@ public class quizControlDebugController {
     @Autowired
     private QuizRepository quizRepository;
 
+    @Autowired
+    private QuizUserRepository quizUserRepository;
+
     @RequestMapping(value = "", method =  { RequestMethod.GET, RequestMethod.POST })
     public String quizControl(Model model,
                               @RequestParam(required = false) Integer selectQuizId,
@@ -23,8 +28,6 @@ public class quizControlDebugController {
         if (selectQuizId != null){
             Optional<Quiz> quiz = quizRepository.findById(selectQuizId);
             Quiz selectedQuiz = quiz.get();
-
-            //selected quiz should be fed to the encounters through a DTO or something?
 
             Boolean selectSuccessful = true;
             model.addAttribute("selectSuccessful", selectSuccessful);
@@ -34,8 +37,6 @@ public class quizControlDebugController {
         if (resetQuizId != null){
             Optional<Quiz> quiz = quizRepository.findById(resetQuizId);
             Quiz resettiedQuiz = quiz.get();
-
-            //selected quiz should be fed to the encounters through a DTO or something?
 
             Boolean resetSuccessful = true;
             model.addAttribute("resetSuccessful", resetSuccessful);

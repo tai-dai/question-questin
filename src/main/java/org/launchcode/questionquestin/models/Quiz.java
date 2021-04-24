@@ -14,8 +14,11 @@ public class Quiz extends AbstractEntity{
     @JoinColumn(name = "quiz_id")
     private List<Question> questions = new ArrayList<>();
     private int numQuestions;
-    private double percentComplete = 0;
     private Boolean setupComplete = false;
+
+    //TODO delete when users
+    private Boolean selected = false;
+    private double percentComplete = 0;
     private Boolean isComplete = false;
 
     public Quiz(String name, int numQuestions, List questions){
@@ -35,16 +38,41 @@ public class Quiz extends AbstractEntity{
         }
     }
 
+    public double calculateComplete(){
+        int answeredQs = 0;
+        for (Question question : questions){
+            if (question.getAnswered() == true){
+                answeredQs ++;
+            }
+        }
+
+        double percentage = answeredQs % this.numQuestions;
+
+        this.percentComplete = percentage;
+        return percentage;
+    }
+
+    //TODO delete when users
+    public void resetQuiz (){
+        for (Question question : questions){
+            question.setAnswered(false);
+        }
+        this.setPercentComplete(0);
+        this.setComplete(false);
+    }
+
     public List<Question> getQuestions() { return questions; }
-    public double getPercentComplete() { return percentComplete; }
     public Boolean getSetupComplete() { return setupComplete; }
-    public Boolean getComplete() { return isComplete; }
     public int getNumQuestions() { return numQuestions; }
+    public double getPercentComplete() { return percentComplete; }
+    public Boolean getComplete() { return isComplete; }
+    public Boolean getSelected() { return selected; }
 
     public void setQuestions(List<Question> questions) { this.questions = questions; }
-    public void setPercentComplete(double percentComplete) { this.percentComplete = percentComplete; }
     public void setSetupComplete(Boolean setupComplete) { this.setupComplete = setupComplete; }
-    public void setComplete(Boolean complete) { isComplete = complete; }
     public void setNumQuestions(int numQuestions) { this.numQuestions = numQuestions; }
+    public void setPercentComplete(double percentComplete) { this.percentComplete = percentComplete; }
+    public void setComplete(Boolean complete) { isComplete = complete; }
+    public void setSelected(Boolean selected) { this.selected = selected; }
 
 }
