@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Secret Dev Stuff Ehehehee // Question Questin'</title>
+</head>
+<body>
+
+<!--temporary template
+set quiz for use and reset quiz progress in order to bypass login functionality-->
+
+<h1>What We Doin'?</h1>
+
+<!--Display selected quiz-->
+
+<form th:action="@{/quizControl}" method = "post">
+    <h2>Select a quiz</h2>
+    <h3 th:if = "${selectSuccessful}" th:text = "${selectedQuiz.name} + ' selected'"></h3>
+        <input type = "number" placeholder = "0000" th:name = "selectQuizId">
+        <input type = "submit" value = "Select">
+
+    <h2>Reset a quiz</h2>
+    <h3 th:if = "${resetSuccessful}" th:text = "${resettiedQuiz.name} + ' reset'"></h3>
+        <input type = "number" placeholder = "0000" th:name = "resetQuizId">
+    <input type = "submit" onclick = "return confirm('Are you sure you want to reset?')" value = "Reset">
+</form>
+
+</body>
+</html>
