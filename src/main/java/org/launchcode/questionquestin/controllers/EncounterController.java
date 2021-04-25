@@ -2,8 +2,10 @@ package org.launchcode.questionquestin.controllers;
 
 import org.launchcode.questionquestin.models.Answer;
 import org.launchcode.questionquestin.models.Question;
+import org.launchcode.questionquestin.models.Quiz;
 import org.launchcode.questionquestin.models.data.AnswerRepository;
 import org.launchcode.questionquestin.models.data.QuestionRepository;
+import org.launchcode.questionquestin.models.data.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +20,13 @@ import java.util.Optional;
 public class EncounterController {
 
     @Autowired
+    private QuizRepository quizRepository;
+    @Autowired
     private QuestionRepository questionRepository;
     @Autowired
     private AnswerRepository answerRepository;
 
-//    @GetMapping(value = "testEncounter")
+//    @GetMapping("testEncounter")
 //    public String initTestEncounter(Model model, @RequestParam(required = false) Integer selectedAnswer){
 //
 //        List<Answer> testAnswers = new ArrayList<>();
@@ -67,4 +71,26 @@ public class EncounterController {
 //
 //
 //    }
+    @GetMapping("encounter")
+    public String standardEncounter(Model model, String encounterNum){
+        //use encounter id and quiz id for parameters
+        //grab the selected quiz by searching for the quiz with selected set to true
+        //grab question matched to encounter
+        //see if question has been answered
+        //if yes, load up encounter!
+        Iterable<Quiz> quizzes = new ArrayList<>();
+        quizzes = quizRepository.findAll();
+
+        Quiz selectedQuiz;
+        for (Quiz quiz : quizzes){
+            if (quiz.getSelected() == true){
+                selectedQuiz = quiz;
+            }
+        }
+
+
+
+        return "index";
+    }
+
 }

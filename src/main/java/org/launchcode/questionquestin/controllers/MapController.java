@@ -13,6 +13,9 @@ public class MapController {
         return "playerQuiz/overworld";
     }
 
+    @GetMapping("park")
+    public String park() { return "playerQuiz/park"; }
+
     @GetMapping("testLocation")
     public String testLocation(){
         return "playerQuiz/mapLocations/testLocation";

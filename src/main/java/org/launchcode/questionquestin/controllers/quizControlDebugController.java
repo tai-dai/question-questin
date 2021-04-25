@@ -29,6 +29,8 @@ public class quizControlDebugController {
             Optional<Quiz> quiz = quizRepository.findById(selectQuizId);
             Quiz selectedQuiz = quiz.get();
 
+            selectedQuiz.setSelected(true);
+
             Boolean selectSuccessful = true;
             model.addAttribute("selectSuccessful", selectSuccessful);
             model.addAttribute("selectedQuiz", selectedQuiz);
@@ -37,6 +39,11 @@ public class quizControlDebugController {
         if (resetQuizId != null){
             Optional<Quiz> quiz = quizRepository.findById(resetQuizId);
             Quiz resettiedQuiz = quiz.get();
+
+            //TODO this is a super basic way to store quiz progress
+
+            resettiedQuiz.setSelected(false);
+            resettiedQuiz.resetQuiz();
 
             Boolean resetSuccessful = true;
             model.addAttribute("resetSuccessful", resetSuccessful);
