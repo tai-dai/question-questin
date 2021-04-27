@@ -15,8 +15,6 @@ public class Quiz extends AbstractEntity{
     private List<Question> questions = new ArrayList<>();
     private int numQuestions;
     private Boolean setupComplete = false;
-
-    //TODO delete when users
     private Boolean selected = false;
     private double percentComplete = 0;
     private Boolean isComplete = false;

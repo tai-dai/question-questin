@@ -3,34 +3,48 @@ package org.launchcode.questionquestin.models;
 import com.sun.istack.NotNull;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-@Entity
-public class Encounter extends AbstractEntity{
+
+public class Encounter{
 
     //private questor
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "encounter_id")
+    private final int id;
+    private String name;
     private List<Question> questions = new ArrayList<>();
+    private EncounterType encounterType;
 
-    @NotNull
-    private int encounterNum;
-
-    public Encounter(String name, List<Question> questions, int encounterNum) {
-        this.setName(name);
-        this.questions = questions;
-        this.encounterNum = encounterNum;
+    public Encounter(int id, String name, EncounterType encounterType) {
+        this.id = id;
+        this.name = name;
+        this.encounterType = encounterType;
     }
 
     //Getters 'n' setters
-    public List<Question> getQuestions() { return questions; }
-    public void setEncounterNum(int encounterNum) { this.encounterNum = encounterNum; }
 
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public List<Question> getQuestions() { return questions; }
+    public EncounterType getEncounterType() { return encounterType; }
+
+    public void setName(String name) { this.name = name; }
     public void setQuestions(List<Question> questions) { this.questions = questions; }
-    public int getEncounterNum() { return encounterNum; }
+    public void setEncounterType(EncounterType encounterType) { this.encounterType = encounterType; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Encounter encounter = (Encounter) o;
+        return id == encounter.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

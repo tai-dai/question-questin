@@ -5,6 +5,21 @@
     <title>Title</title>
 </head>
 <body>
+<p th:text = "'Question: ' + ${question.name}">Question: What's the right answer?</p>
+<p>
+            <span th:each = "answer : ${question.answers}">
+                <input type = "radio" name = "selectedAnswer" th:value = "${answer.id}"/>
+                <label th:text = "${answer.name}"></label>
+            </span>
+</p>
+<input th:unless = "${correct}" type="submit" value="Submit"/>
+</form>
+<form th:if = "${correct}" th:action= "@{/map/${thisLocation}(thisLocation=${location})" method = "get" >
+    <button type="submit">Continue</button>
+</form>
+<p>
+    <span th:if = "${correct == true}">That's correct!</span>
+</p>
 
 </body>
 </html>

@@ -18,9 +18,6 @@ public class Question extends AbstractEntity {
     @JoinColumn(name = "question_id")
     private List<Answer> answers = new ArrayList<>();
 
-    @ManyToOne
-    private Encounter encounter;
-
     @NotNull
     private int questionNum;
     private Boolean setupComplete = false;

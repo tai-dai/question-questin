@@ -1,9 +1,7 @@
 package org.launchcode.questionquestin.controllers;
 
 import org.launchcode.questionquestin.models.Quiz;
-import org.launchcode.questionquestin.models.QuizUser;
 import org.launchcode.questionquestin.models.data.QuizRepository;
-import org.launchcode.questionquestin.models.data.QuizUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +15,7 @@ public class quizControlDebugController {
 
     @Autowired
     private QuizRepository quizRepository;
-
-    @Autowired
-    private QuizUserRepository quizUserRepository;
+ 
 
     @RequestMapping(value = "", method =  { RequestMethod.GET, RequestMethod.POST })
     public String quizControl(Model model,
@@ -32,6 +28,8 @@ public class quizControlDebugController {
             selectedQuiz.setSelected(true);
 
             Boolean selectSuccessful = true;
+
+            quizRepository.save(selectedQuiz);
             model.addAttribute("selectSuccessful", selectSuccessful);
             model.addAttribute("selectedQuiz", selectedQuiz);
         }

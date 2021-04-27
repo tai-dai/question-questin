@@ -14,7 +14,7 @@ public class MapController {
     }
 
     @GetMapping("park")
-    public String park() { return "playerQuiz/park"; }
+    public String park() { return "playerQuiz/mapLocations/park"; }
 
     @GetMapping("testLocation")
     public String testLocation(){
