@@ -2,13 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments :: head">
     </head>
-    <body>
+    <body class = "container">
         <h2>Begin your Question Quest</h2>
         <div>
-            <li>Login</li>
-            <li>New User</li>
             <li><a th:href = "@{/newQuiz}">Create a Quiz</a></li>
-            <li><a th:href = "@{/map}">Take Selected Quiz</a></li>
+            <li><a th:href = "@{/quizControl}">Select or Deselect a Quiz</a></li>
+            <li><a th:href = "@{/takeQuiz}">Take Selected Quiz</a></li>
         </div>
     </body>
 </html>

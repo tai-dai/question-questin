@@ -1,13 +1,11 @@
 package org.launchcode.questionquestin.models;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "quiz", schema = "question_questin")
 public class Quiz extends AbstractEntity{
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -15,6 +13,8 @@ public class Quiz extends AbstractEntity{
     private List<Question> questions = new ArrayList<>();
     private int numQuestions;
     private Boolean setupComplete = false;
+
+    @Column(name = "selected")
     private Boolean selected = false;
     private double percentComplete = 0;
     private Boolean isComplete = false;
@@ -47,6 +47,11 @@ public class Quiz extends AbstractEntity{
         double percentage = answeredQs % this.numQuestions;
 
         this.percentComplete = percentage;
+
+        if (percentage == 100){
+            this.isComplete = true;
+        }
+
         return percentage;
     }
 

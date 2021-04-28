@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Secret Dev Stuff Ehehehee // Question Questin'</title>
+    <title>Select or Reset // Question Questin'</title>
 </head>
-<body>
+<body class = "container">
 
 <!--temporary template
 set quiz for use and reset quiz progress in order to bypass login functionality-->
@@ -15,7 +15,7 @@ set quiz for use and reset quiz progress in order to bypass login functionality-
 
 <form th:action="@{/quizControl}" method = "post">
     <h2>Select a quiz</h2>
-    <h3 th:if = "${selectSuccessful}" th:text = "${selectedQuiz.name} + ' selected'"></h3>
+    <h3 th:if = "${selectStatus}" th:text = "${selectStatus}"></h3>
         <input type = "number" placeholder = "0000" th:name = "selectQuizId">
         <input type = "submit" value = "Select">
 

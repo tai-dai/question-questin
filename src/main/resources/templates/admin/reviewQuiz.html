@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Review Quiz // Question Questin'</title>
 </head>
-<body>
+<body class = "container">
     <h1 th:text = "'Review Quiz: ' + ${quiz.name}">Review Quiz</h1>
     <ol>
         <li th:each = "question : ${quiz.questions}">

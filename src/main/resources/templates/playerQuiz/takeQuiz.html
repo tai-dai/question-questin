@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text = "${quiz.name} + ' // Question Questin'"></title>
+</head>
+<body class = "container">
+
+<p th:if = "${quizError}" th:text = "${quizError}"></p>
+<div th:if = "${quiz}">I will display a bunch of clickable questions</div>
+</body>
+</html>
