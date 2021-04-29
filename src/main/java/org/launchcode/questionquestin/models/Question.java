@@ -59,7 +59,7 @@ public class Question extends AbstractEntity {
         List<Integer> correctAnswers = new ArrayList<>();
 
         for (Answer answer : this.answers) {
-            if (answer.getCorrect() == true) {
+            if (answer.getCorrect()) {
                 correctAnswers.add(answer.getId());
             }
         }

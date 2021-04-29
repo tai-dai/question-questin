@@ -29,6 +29,8 @@ public class TakeQuizController {
 
         } else if (quizzes.get(0) != null){
             Quiz quiz = quizzes.get(0);
+            quiz.calculateComplete();
+            quizRepository.save(quiz);
 
             model.addAttribute("quiz", quiz);
 
@@ -37,8 +39,6 @@ public class TakeQuizController {
             model.addAttribute("quizError", quizError);
         }
 
-        //find selected quiz
-        //if no quiz selected, return error
         //if quiz selected is valid,
             //run quiz.calculate complete, then save quiz
             //feed a list of quiz.questions

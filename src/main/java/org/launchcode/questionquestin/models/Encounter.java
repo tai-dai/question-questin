@@ -35,6 +35,7 @@ public class Encounter{
     public void setQuestions(List<Question> questions) { this.questions = questions; }
     public void setEncounterType(EncounterType encounterType) { this.encounterType = encounterType; }
 
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

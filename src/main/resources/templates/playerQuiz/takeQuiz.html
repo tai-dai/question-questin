@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text = "${quiz.name} + ' // Question Questin'"></title>
-</head>
-<body class = "container">
+    <head>
+        <meta charset="UTF-8">
+        <title th:text = "${quiz.name} + ' // Question Questin'"></title>
+    </head>
 
-<p th:if = "${quizError}" th:text = "${quizError}"></p>
-<div th:if = "${quiz}">I will display a bunch of clickable questions</div>
-</body>
+    <body class = "container">
+            <p th:if = "${quizError}" th:text = "${quizError}"></p>
+            <div th:if = "${quiz}">
+                <h1 th:text = "${quiz.name}"></h1>
+                <table>
+                    <th:block th:each = "question : ${quiz.questions}">
+<!--th:attrappend= "style=${question.answered}?background-color:#d9ff91"-->
+                        <tr>
+                            <td th:text = "${question.questionNum} + ')'"></td>
+                            <td th:text = "${question.name}"></td>
+                            <td>
+<!--                                fix janky routing-->
+                                <a th:href = "@{encounter/(${question.id})}">
+                                    <input type = "hidden" th:name = "questionId" th:value = "${question.id}">
+                                    <input type = "submit" value = "Go!">
+                                </a>
+                            </td>
+                        </tr>
+
+                    </th:block>
+                </table>
+            </div>
+        </body>
 </html>

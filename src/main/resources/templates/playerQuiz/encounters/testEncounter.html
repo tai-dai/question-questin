@@ -6,7 +6,7 @@
     </head>
     <body>
 
-    <form th:action="@{/encounters/testEncounter}" method = "post">
+    <form th:action="@{/encounter/{questionId}}" method = "post">
         <p th:text = "'Question: ' + ${question.name}">Question: What's the right answer?</p>
         <p>
             <span th:each = "answer : ${question.answers}">
